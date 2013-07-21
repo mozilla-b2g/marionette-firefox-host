@@ -1,0 +1,6 @@
+--colors
+--growl
+--recursive
+--reporter spec
+--timeout 100s
+--ui tdd
