@@ -1,0 +1,38 @@
+{
+  "name": "marionette-firefox-host",
+  "version": "0.0.1",
+  "author": {
+    "name": "Gareth Aye",
+    "email": "gaye@mozilla.com"
+  },
+
+  "devDependencies": {
+    "mocha": "*"
+  },
+
+  "dependencies": {
+    "empty-port": "*",
+    "mozilla-download": "*",
+    "mozilla-profile-builder": "*",
+    "mozilla-runner": "*"
+  },
+
+  "keywords": [
+    "firefox",
+    "firefox os",
+    "gecko",
+    "marionette",
+    "mozilla"
+  ],
+
+  "scripts": {
+    "test": "make"
+  },
+
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozilla-b2g/marionette-firefox-host.git"
+  }
+}
