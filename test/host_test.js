@@ -15,18 +15,31 @@ suite('Host', function() {
   });
 
   suite('#restart', function() {
-    // TODO(gareth)
+    setup(function(done) {
+      subject.start(function(err) {
+        done();
+      });
+    });
+
+    test('should kill the old one and spawn a new one', function(done) {
+      var stop = sinon.spy(subject, 'stop');
+      var start = sinon.spy(subject, 'start');
+      subject.restart(function() {
+        sinon.assert.calledOnce(stop);
+        subject.stop.restore();
+        sinon.assert.calledOnce(start);
+        subject.start.restore();
+        done();
+      });
+    });
   });
 
   suite('#start', function() {
-    var client, driver, err, port, child, profile;
+    var client, driver;
 
     setup(function(done) {
-      subject.start(function(_err, _port, _child, _profile) {
-        err = _err;
-        port = _port;
-        child = _child;
-        profile = _profile;
+      subject.start(function(err) {
+        assert.equal(err, null);
         done();
       });
     });
@@ -35,20 +48,18 @@ suite('Host', function() {
       subject.stop(done);
     });
 
-    test('should not err', function() {
-      assert.equal(err, null);
-    });
-
     test('should find a valid port for marionette', function() {
-      assert.ok(port >= Host.START_PORT);
+      assert.ok(subject.options.port >= Host.START_PORT);
     });
 
     test('should create a gecko child process', function() {
-      assert.notEqual(child, null);
+      assert.notEqual(subject.childProcess, null);
+      var pid = subject.childProcess.pid;
+      assert.ok(typeof(pid) === 'number' && pid % 1 === 0);
     });
 
     test('should make a profile', function() {
-      assert.notEqual(profile, null);
+      assert.notEqual(subject.options.profile, null);
     });
 
     test('should enable connecting to marionette server', function(done) {
@@ -67,7 +78,7 @@ suite('Host', function() {
         });
       }
 
-      var driver = new Marionette.Drivers.Tcp({ port: port });
+      var driver = new Marionette.Drivers.Tcp({ port: subject.options.port });
       driver.connect(function() {
         // This is a hack around some bug in marionette or the
         // marionette-js-client that makes the connect callback get
@@ -79,7 +90,8 @@ suite('Host', function() {
 
   suite('#stop', function() {
     setup(function(done) {
-      subject.start(function(_err, _port, _child, _profile) {
+      subject.start(function(err) {
+        assert.equal(err, null);
         done();
       });
     });

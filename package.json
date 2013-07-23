@@ -16,7 +16,8 @@
     "empty-port": "0.0.1",
     "mozilla-download": "0.1.0",
     "mozilla-profile-builder": "0.1.2",
-    "mozilla-runner": "0.0.1"
+    "mozilla-runner": "0.0.1",
+    "remove": "0.1.5"
   },
 
   "keywords": [
