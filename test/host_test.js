@@ -1,6 +1,7 @@
 var Host = require('../lib/host'),
     Marionette = require('marionette-client'),
     assert = require('assert'),
+    net = require('net'),
     sinon = require('sinon');
 
 suite('Host', function() {
@@ -49,17 +50,17 @@ suite('Host', function() {
     });
 
     test('should find a valid port for marionette', function() {
-      assert.ok(subject.options.port >= Host.START_PORT);
+      assert.ok(subject._options.port >= Host.START_PORT);
     });
 
     test('should create a gecko child process', function() {
-      assert.notEqual(subject.childProcess, null);
-      var pid = subject.childProcess.pid;
+      assert.notEqual(subject._childProcess, null);
+      var pid = subject._childProcess.pid;
       assert.ok(typeof(pid) === 'number' && pid % 1 === 0);
     });
 
     test('should make a profile', function() {
-      assert.notEqual(subject.options.profile, null);
+      assert.notEqual(subject._options.profile, null);
     });
 
     test('should enable connecting to marionette server', function(done) {
@@ -78,7 +79,10 @@ suite('Host', function() {
         });
       }
 
-      var driver = new Marionette.Drivers.Tcp({ port: subject.options.port });
+      var driver = new Marionette.Drivers.Tcp({
+        port: subject._options.port
+      });
+
       driver.connect(function() {
         // This is a hack around some bug in marionette or the
         // marionette-js-client that makes the connect callback get
@@ -89,15 +93,25 @@ suite('Host', function() {
   });
 
   suite('#stop', function() {
+    var port, profile;
+
     setup(function(done) {
       subject.start(function(err) {
+        port = subject._options.port;
+        profile = subject._options.profile;
         assert.equal(err, null);
         done();
       });
     });
 
-    test('should kill childProcess', function(done) {
-      subject.stop(done);
+    test('should kill _childProcess', function(done) {
+      subject.stop(function() {
+        var socket = net.connect(port);
+        socket.on('error', function(err) {
+          assert.strictEqual(err.code, 'ECONNREFUSED');
+          done();
+        });
+      });
     });
   });
 });

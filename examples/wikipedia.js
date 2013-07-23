@@ -7,13 +7,15 @@ var Host = require('../index'),
 /**
  * Gets called when firefox child process started.
  * @param {Error} err error object.
- * @param {number} port for marionette server.
- * @param {string} runtime path to firefox binary.
+ * @param {Host} host marionette firefox host.
  */
-function onStart(err, port, child, profile) {
+function onStart(err, host) {
   if (err) {
     throw err;
   }
+
+  var port = host._options.port;
+  var profile = host._options.profile;
 
   console.log('Firefox started...');
   console.log('Marionette server listening on port %d...', port);
@@ -50,7 +52,9 @@ function onConnect(driver) {
 
 function main() {
   var host = new Host();
-  host.start(onStart);
+  host.start(function(err) {
+    onStart(err, host);
+  });
 }
 
 
