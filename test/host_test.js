@@ -1,45 +1,51 @@
 var Host = require('../lib/host'),
     Marionette = require('marionette-client'),
     assert = require('assert'),
-    net = require('net'),
-    sinon = require('sinon');
+    emptyPort = require('empty-port'),
+    mozProfileBuilder = require('mozilla-profile-builder'),
+    net = require('net');
 
 suite('Host', function() {
   var subject;
+
+  // port where marionette should be running.
+  var port;
+  setup(function(done) {
+    emptyPort({}, function(err, _port) {
+      port = port;
+      done(err);
+    });
+  });
+
+  // path to the current profile.
+  var profile;
+  setup(function(done) {
+    var options = {
+      prefs: {
+        'marionette.defaultPrefs.enabled': true,
+        'marionette.defaultPrefs.port': port
+      }
+    };
+
+    mozProfileBuilder.create(options, function(err, instance) {
+      profile = instance.path;
+      done(err);
+    });
+  });
 
   setup(function() {
     subject = new Host();
   });
 
-  test('should expose metadata', function() {
-    assert.notStrictEqual(subject.metadata, undefined);
-  });
-
-  suite('#restart', function() {
-    setup(function(done) {
-      subject.start(function(err) {
-        done();
-      });
-    });
-
-    test('should kill the old one and spawn a new one', function(done) {
-      var stop = sinon.spy(subject, 'stop');
-      var start = sinon.spy(subject, 'start');
-      subject.restart(function() {
-        sinon.assert.calledOnce(stop);
-        subject.stop.restore();
-        sinon.assert.calledOnce(start);
-        subject.start.restore();
-        done();
-      });
-    });
+  test('Host.metadata', function() {
+    assert.notStrictEqual(Host.metadata, undefined);
   });
 
   suite('#start', function() {
     var client, driver;
 
     setup(function(done) {
-      subject.start(function(err) {
+      subject.start(profile, {}, function(err) {
         assert.equal(err, null);
         done();
       });
@@ -49,18 +55,10 @@ suite('Host', function() {
       subject.stop(done);
     });
 
-    test('should find a valid port for marionette', function() {
-      assert.ok(subject._options.port >= Host.START_PORT);
-    });
-
     test('should create a gecko child process', function() {
       assert.notEqual(subject._childProcess, null);
       var pid = subject._childProcess.pid;
       assert.ok(typeof(pid) === 'number' && pid % 1 === 0);
-    });
-
-    test('should make a profile', function() {
-      assert.notEqual(subject._options.profile, null);
     });
 
     test('should enable connecting to marionette server', function(done) {
@@ -93,22 +91,14 @@ suite('Host', function() {
   });
 
   suite('#stop', function() {
-    var port, profile;
-
     setup(function(done) {
-      subject.start(function(err) {
-        port = subject._options.port;
-        profile = subject._options.profile;
-        assert.equal(err, null);
-        done();
-      });
+      subject.start(profile, {}, done);
     });
 
     test('should kill _childProcess', function(done) {
       subject.stop(function() {
         var socket = net.connect(port);
         socket.on('error', function(err) {
-          assert.strictEqual(err.code, 'ECONNREFUSED');
           done();
         });
       });
