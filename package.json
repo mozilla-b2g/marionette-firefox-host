@@ -17,7 +17,7 @@
 
   "dependencies": {
     "mozilla-download": "~0.4",
-    "mozilla-runner": "~0.2",
+    "mozilla-runner": "~0.3",
     "remove": "0.1.5"
   },
 
