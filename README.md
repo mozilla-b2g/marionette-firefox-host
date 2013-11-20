@@ -10,7 +10,7 @@ Status](https://travis-ci.org/mozilla-b2g/marionette-firefox-host.png?branch=mas
 
 Copyright (c) 2013 Mozilla Foundation
 
-Contributors: Gareth Aye <gaye@mozilla.com>
+Contributors: Gareth Aye <gaye@mozilla.com>, Kevin Grandon <kgrandon@mozilla.com>, James Lal <jlal@mozilla.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the
