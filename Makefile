@@ -5,7 +5,7 @@ MARIONETTE_MOCHA?=./node_modules/.bin/marionette-mocha \
 default: node_modules lint test
 
 firefox:
-	./node_modules/.bin/mozilla-download --product firefox --verbose $@
+	./node_modules/.bin/mozilla-download --product firefox --branch nightly --channel prerelease  $@
 
 node_modules:
 	npm install
