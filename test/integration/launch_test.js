@@ -1,28 +1,17 @@
 marionette('browse in firefox', function() {
   var assert = require('assert');
-  var emptyPort = require('empty-port');
 
-  var port;
   var url;
-  suiteSetup(function(done) {
-    emptyPort({ startPort: 60000 }, function(err, _port) {
-      port = _port;
-      url = 'http://localhost:' + port;
-      done(err);
-    });
-  });
-
   // launch server process
   var serverProc;
   suiteSetup(function(done) {
     var fork = require('child_process').fork;
-    serverProc = fork(__dirname + '/server.js', [], {
-      env: { PORT: port }
-    });
+    serverProc = fork(__dirname + '/server.js');
 
     serverProc.on('message', function(event) {
       assert.equal(event[0], 'start');
-      assert.equal(event[1], port);
+      assert.ok(event[1]);
+      url = event[1];
       done();
     });
   });
