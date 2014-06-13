@@ -1,4 +1,4 @@
-var Host = require('../lib/host'),
+var Host = require('../'),
     Marionette = require('marionette-client'),
     assert = require('assert'),
     emptyPort = require('empty-port'),
@@ -55,12 +55,6 @@ suite('Host', function() {
       subject.stop(done);
     });
 
-    test('should create a gecko child process', function() {
-      assert.notEqual(subject._childProcess, null);
-      var pid = subject._childProcess.pid;
-      assert.ok(typeof(pid) === 'number' && pid % 1 === 0);
-    });
-
     test('should enable connecting to marionette server', function(done) {
       function onConnect(driver) {
         var client = new Marionette.Client(driver);
@@ -78,7 +72,7 @@ suite('Host', function() {
       }
 
       var driver = new Marionette.Drivers.Tcp({
-        port: subject._options.port
+        port: subject.options.port
       });
 
       driver.connect(function() {

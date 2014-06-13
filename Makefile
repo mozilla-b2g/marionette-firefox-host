@@ -1,20 +1,14 @@
 MARIONETTE_MOCHA?=./node_modules/.bin/marionette-mocha \
-		--host $(PWD)/index.js
+		--host $(PWD)
 
 .PHONY: default
-default: node_modules lint test
+default: node_modules test
 
 firefox:
 	./node_modules/.bin/mozilla-download --product firefox --branch nightly --channel prerelease  $@
 
 node_modules:
 	npm install
-
-.PHONY: lint
-lint:
-	gjslint --recurse . \
-	  --disable "217,220,225" \
-	  --exclude_directories "b2g,examples,firefox,node_modules"
 
 .PHONY: test
 test: firefox test-unit test-integration
