@@ -1,6 +1,6 @@
 {
   "name": "marionette-firefox-host",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Gareth Aye",
     "email": "gaye@mozilla.com"
@@ -9,14 +9,14 @@
   "devDependencies": {
     "empty-port": "0.0.1",
     "marionette-client": "~1.1",
-    "mocha": "1.12.0",
+    "mocha": "2.2.4",
     "mozilla-profile-builder": "~0.3",
-    "marionette-js-runner": "~0.3",
+    "marionette-js-runner": "0.5.1",
     "node-static": "0.6.9"
   },
 
   "dependencies": {
-    "mozilla-download": "~0.4",
+    "mozilla-download": "1.0.x",
     "mozilla-runner": "~0.2",
     "remove": "0.1.5"
   },
@@ -30,7 +30,7 @@
   ],
 
   "scripts": {
-    "test": "make"
+    "test": "make test"
   },
 
   "license": "MIT",

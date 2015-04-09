@@ -34,7 +34,7 @@ suite('Host', function() {
   });
 
   setup(function() {
-    subject = new Host();
+    subject = new Host({ runtime: __dirname + '/../firefox' });
   });
 
   test('Host.metadata', function() {
@@ -45,10 +45,7 @@ suite('Host', function() {
     var client, driver;
 
     setup(function(done) {
-      subject.start(profile, {}, function(err) {
-        assert.equal(err, null);
-        done();
-      });
+      subject.start(profile, {}, done);
     });
 
     teardown(function(done) {
