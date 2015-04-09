@@ -1,9 +1,9 @@
-marionette('browse in firefox', function() {
-  var assert = require('assert');
-  var emptyPort = require('empty-port');
+var assert = require('assert');
+var emptyPort = require('empty-port');
 
-  var port;
-  var url;
+marionette('browse in firefox', function() {
+  var port, url;
+
   suiteSetup(function(done) {
     emptyPort({ startPort: 60000 }, function(err, _port) {
       port = _port;

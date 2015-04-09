@@ -1,4 +1,3 @@
---colors
 --reporter spec
 --timeout 100s
 --ui tdd
