@@ -1,7 +1,7 @@
 {
   "name": "marionette-firefox-host",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "author": {
     "name": "Gareth Aye",
@@ -9,13 +9,13 @@
   },
 
   "dependencies": {
+    "debug": "2.1.3",
     "promise": "7.0.1",
     "mozilla-runner": "0.5.0"
   },
 
   "devDependencies": {
     "chai": "2.3.0",
-    "debug": "2.1.3",
     "empty-port": "0.0.1",
     "marionette-js-runner": "1.0.15",
     "mocha": "2.2.4",
