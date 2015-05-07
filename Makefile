@@ -1,29 +1,25 @@
 .PHONY: test
-test: test-unit test-integration
+test: firefox node_modules/.bin/marionette-mocha
+	./node_modules/.bin/marionette-mocha \
+		--host $(shell pwd)/index.js \
+		--runtime $(shell pwd)/firefox/firefox-bin \
+		$(shell find test/ -name "*_test.js")
 
-firefox: node_modules
+.PHONY: example
+example: firefox node_modules/.bin/marionette-mocha
+	./node_modules/.bin/marionette-mocha \
+		--host $(shell pwd)/index.js \
+		--runtime $(shell pwd)/firefox/firefox-bin \
+		examples/wikipedia.js
+
+firefox: node_modules/.bin/mozilla-download
 	DEBUG=* ./node_modules/.bin/mozilla-download \
 		--product firefox \
 		--branch mozilla-central \
 		$(shell pwd)
+	touch firefox
 
-.PHONY: test-unit
-test-unit: firefox node_modules
-	./node_modules/.bin/mocha ./test/host_test.js
-
-.PHONY: test-integration
-test-integration: firefox node_modules
-	./node_modules/.bin/marionette-mocha $(shell find test/integration -name "*_test.js")
-
-.PHONY: examples
-examples: firefox node_modules
-	./node_modules/.bin/marionette-mocha \
-		--host ./index.js \
-		./examples/wikipedia.js
-
+node_modules/.bin/marionette-mocha: node_modules
+node_modules/.bin/mozilla_download: node_modules
 node_modules: package.json
 	npm install
-
-.PHONY: clean
-clean:
-	rm -rf firefox node_modules
