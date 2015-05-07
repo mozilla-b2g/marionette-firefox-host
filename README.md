@@ -3,12 +3,9 @@ marionette-firefox-host
 
 Spawn a child process running a configurable instance of desktop Firefox.
 
-[![Build
-Status](https://travis-ci.org/mozilla-b2g/marionette-firefox-host.png?branch=master)](https://travis-ci.org/mozilla-b2g/marionette-firefox-host)
-
 ## License
 
-Copyright (c) 2013 Mozilla Foundation
+Copyright (c) 2015 Mozilla Foundation
 
 Contributors: Gareth Aye <gaye@mozilla.com>, Kevin Grandon <kgrandon@mozilla.com>, James Lal <jlal@mozilla.com>
 
