@@ -32,7 +32,7 @@ Host.createSession = function(host, profile, options) {
   return run(target, options).then(function(child) {
     // Firefox explodes if you don't wait a bit before trying to interact
     // with the marionette server for some reason...
-    return sleep(2000).then(function() {
+    return sleep(4000).then(function() {
       return new Session(child);
     });
   });
