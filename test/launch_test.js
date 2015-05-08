@@ -2,7 +2,11 @@ var expect = require('chai').expect;
 var serverHelper = require('./server_helper');
 
 marionette('basic', function() {
-  var client = marionette.client();
+  var client = marionette.client({
+    prefs: {
+      'browser.shell.checkDefaultBrowser': false
+    }
+  });
 
   var url;
 
