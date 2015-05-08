@@ -2,8 +2,6 @@ var Promise = require('promise');
 var debug = require('debug')('marionette-firefox-host');
 var run = Promise.denodeify(require('mozilla-runner').run);
 
-const START_PORT = 60030;
-
 /**
  * Options:
  *
