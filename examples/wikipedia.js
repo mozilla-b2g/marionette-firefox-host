@@ -1,7 +1,8 @@
 marionette('wikipedia', function() {
   var client = marionette.client({
     prefs: {
-      'browser.shell.checkDefaultBrowser': false
+      'browser.shell.checkDefaultBrowser': false,
+      'browser.uitour.enabled': false
     }
   });
 
