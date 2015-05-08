@@ -1,5 +1,8 @@
 marionette('wikipedia', function() {
-  var client = marionette.client();
+  var client = marionette.client({
+    prefs: 'browser.shell.checkDefaultBrowser': false
+  });
+
   var url = 'https://wikipedia.org';
 
   setup(function() {
