@@ -5,7 +5,8 @@ var serverHelper = require('./server_helper');
 marionette('loop', function() {
   var client = marionette.client({
     prefs: {
-      'browser.shell.checkDefaultBrowser': false
+      'browser.shell.checkDefaultBrowser': false,
+      'browser.uitour.enabled': false
     }
   });
 
