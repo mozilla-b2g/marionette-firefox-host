@@ -1,2 +1,4 @@
+*.log
+
 /firefox
 /node_modules
