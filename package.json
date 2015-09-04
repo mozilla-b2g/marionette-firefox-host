@@ -15,12 +15,12 @@
   },
 
   "devDependencies": {
-    "chai": "2.3.0",
+    "chai": "3.2.0",
     "empty-port": "0.0.1",
-    "marionette-js-runner": "1.0.15",
-    "mocha": "2.2.4",
-    "mozilla-download": "1.0.5",
-    "node-static": "0.7.6"
+    "marionette-client": "1.8.1",
+    "marionette-js-runner": "1.1.3",
+    "mozilla-download": "1.1.1",
+    "node-static": "0.7.7"
   },
 
   "repository": {

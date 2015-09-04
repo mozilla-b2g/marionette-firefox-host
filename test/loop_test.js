@@ -4,8 +4,10 @@ var serverHelper = require('./server_helper');
 
 marionette('loop', function() {
   var client = marionette.client({
-    prefs: {
-      'browser.shell.checkDefaultBrowser': false
+    profile: {
+      prefs: {
+        'browser.shell.checkDefaultBrowser': false
+      }
     }
   });
 
