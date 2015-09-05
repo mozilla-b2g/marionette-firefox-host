@@ -1,19 +1,16 @@
 {
   "name": "marionette-firefox-host",
   "license": "MIT",
-  "version": "1.0.3",
-
+  "version": "1.0.4",
   "author": {
     "name": "Gareth Aye",
     "email": "gaye@mozilla.com"
   },
-
   "dependencies": {
     "debug": "2.1.3",
     "promise": "7.0.1",
     "mozilla-runner": "0.5.0"
   },
-
   "devDependencies": {
     "chai": "3.2.0",
     "empty-port": "0.0.1",
@@ -22,12 +19,10 @@
     "mozilla-download": "1.1.1",
     "node-static": "0.7.7"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/mozilla-b2g/marionette-firefox-host.git"
   },
-
   "scripts": {
     "test": "make test"
   }
