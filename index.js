@@ -1,4 +1,5 @@
 var Host = require('./host');
+var Session = require('./session');
 
 exports.help = {
   group: {
@@ -13,5 +14,5 @@ exports.help = {
   }
 };
 
-exports.createHost = Host.createHost;
-exports.createSession = Host.createSession;
+exports.createHost = Host.create;
+exports.createSession = Session.create;

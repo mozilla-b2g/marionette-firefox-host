@@ -1,7 +1,9 @@
 marionette('wikipedia', function() {
   var client = marionette.client({
-    prefs: {
-      'browser.shell.checkDefaultBrowser': false
+    profile: {
+      prefs: {
+        'browser.shell.checkDefaultBrowser': false
+      }
     }
   });
 
